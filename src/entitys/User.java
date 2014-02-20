@@ -125,11 +125,10 @@ public abstract class User {
 
 	@Override
 	public String toString() {
-		return "Dados [Nome=" + nomeCompleto + ", dataNascimento="
+		return "Dados:\n Nome=" + nomeCompleto + ", dataNascimento="
 				+ dataNascimento + ", cpf=" + cpf + ", endereco=" + endereco
 				+ ", telefone=" + telefone + ", cargo=" + cargo + ", salario="
-				+ salario + ", admissao=" + admissao + ", login=" + login
-				+ ", senha=" + senha + "]";
+				+ salario + ", , login=" + login;
 	}
 	
 }

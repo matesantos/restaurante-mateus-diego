@@ -28,7 +28,7 @@ public class Facede {
 	}
 	
 	private boolean superAdimin(String login, String senha){
-		if(login.equalsIgnoreCase("00000") && senha.equalsIgnoreCase("00000"))
+		if(login.equalsIgnoreCase("0") && senha.equalsIgnoreCase("0"))
 			return true;
 		
 		return false;
@@ -64,6 +64,40 @@ public class Facede {
 		Gerente gerente = new Gerente(nomeCompleto, cpf, login, senha); 
 		if(daoGerente.saveGerente(gerente)){
 			JOptionPane.showMessageDialog(null, "Gerente cadastrado com sucesso");
+		}
+	}
+	
+	public void atualizarGerente(String cpf, String login, String senha) throws CPFException{
+		daoGerente = new DaoGerente();
+		Gerente gerente = daoGerente.fetchGerente(cpf);
+		
+		if(gerente != null){
+			
+			daoGerente.removeGerente(gerente);
+			gerente.setLogin(login);
+			gerente.setSenha(senha);
+			daoGerente.update(gerente);
+			JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso");
+		}
+	}
+	
+	public void listGerente(){
+		daoGerente = new DaoGerente();
+		daoGerente.listGerentes();
+	}
+	
+	public void deletarGerente(String cpf) {
+		daoGerente = new DaoGerente();
+		Gerente gerente = daoGerente.fetchGerente(cpf);
+		if(gerente != null){
+			int op = JOptionPane.showConfirmDialog(null,
+					"Tem certeza que remove-lo do sistema?", "Saída",
+					JOptionPane.YES_NO_OPTION);
+
+			if (op == JOptionPane.YES_OPTION){
+				daoGerente.removeGerente(gerente);
+				JOptionPane.showMessageDialog(null, "Gerente removido com sucesso");
+			}
 		}
 	}
 
