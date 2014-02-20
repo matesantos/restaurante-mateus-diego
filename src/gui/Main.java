@@ -18,7 +18,7 @@ public class Main {
 		fazerLogin();
 	}
 
-	public void fazerLogin() {
+	private void fazerLogin() {
 		boolean close = false;
 		try {
 			int i;
@@ -55,6 +55,8 @@ public class Main {
 						i = JOptionPane.showConfirmDialog(null,"Deseja terminar o programa?", "Saída",JOptionPane.YES_NO_OPTION);
 						if (i == JOptionPane.YES_OPTION) 
 							close = true;
+						else
+							fazerLogin();
 						break;
 					}
 				}
@@ -71,15 +73,14 @@ public class Main {
 		}
 	}
 	
-	public void finalizarPrograma(){
+	private void finalizarPrograma(){
 		JOptionPane.showMessageDialog(null, "Até mais");
 		System.exit(0);
 	}
 
-	public void MenuPrincipal() {
+	private void MenuPrincipal() {
 
 		while (true) {
-
 			int opcao = new Integer(JOptionPane.showInputDialog("Escolhe a opção:\n1-Gerenciar Gerente\n2-Gerenciar Funcionário\n3-Gerenciar Cliente"
 					+ "											\n4-Sair"));
 
@@ -89,11 +90,9 @@ public class Main {
 			break;
 
 			case 2:
-				adicionarFuncionario();
 			break;
 
 			case 3:
-				adicionarCliente();
 			break;
 			
 			case 4:
@@ -109,36 +108,45 @@ public class Main {
 
 	}
 
-	public void adicionarCliente() {
+	private void adicionarCliente() {
 	}
-	
-	public void gerenciarGerente(){
+
+	//métodos dos gerentes	
+	private void gerenciarGerente(){
 		while (true) {
 
-			int opcao = new Integer(JOptionPane.showInputDialog("Escolhe a opção:\n1-Adicionar Gerente\n2-Adicionar Funcionário\n3-Adicionar Cliente"));
+			int opcao = new Integer(JOptionPane.showInputDialog("Escolhe a opção:\n1-Adicionar Gerente\n2-Listar Gerente\n3-Atuliazar Dados\n4-Deletar Gerente\n5-Voltar"));
 
 			switch (opcao) {
 			case 1:
 				adicionarGerente();
-				break;
+			break;
 
 			case 2:
-				adicionarFuncionario();
-				break;
-
+				listGerente();
+			break;
+			
 			case 3:
-				adicionarCliente();
-				break;
+				atualizarGerente();
+			break;
+
+			case 4:
+				removeGerente();
+			break;
+			
+			case 5:
+				MenuPrincipal();
+			break;
 
 			default:
 				JOptionPane.showMessageDialog(null, "Opção inválida");
+				gerenciarGerente();
 
 			}
 		}
 	}
 
-	public void adicionarGerente() {
-
+	private void adicionarGerente() {
 		String nome = JOptionPane.showInputDialog("Digite o nome completo:");
 		String cpf = JOptionPane.showInputDialog("Digite o CPF:");
 		String login = JOptionPane.showInputDialog("Digite o Login:");
@@ -149,7 +157,6 @@ public class Main {
 		} catch (CPFException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-
 		int i = JOptionPane.showConfirmDialog(null,
 				"Deseja terminar o cadastro?", "Saída",
 				JOptionPane.YES_NO_OPTION);
@@ -158,8 +165,30 @@ public class Main {
 			return;
 		}
 	}
+	
+	private void listGerente(){
+		facede.listGerente();
+	}
+	
+	private void atualizarGerente(){
+		String cpf = JOptionPane.showInputDialog("Digite o CPF do gerente:");
+		String login = JOptionPane.showInputDialog("Digite o novo login:");
+		String senha = JOptionPane.showInputDialog("Digite a nova senha:");
+		try {
+			facede.atualizarGerente(cpf,login,senha);
+		} catch (CPFException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void removeGerente(){
+		String cpf = JOptionPane.showInputDialog("Digite o CPF do gerente:");
+		facede.deletarGerente(cpf);
+	}
 
-	public void adicionarFuncionario() {
+	//métodos do funcionário
+	
+	private void adicionarFuncionario() {
 		String nomeFucionario = JOptionPane.showInputDialog("Digite o nome completo:");
 		String cpfFucionario = JOptionPane.showInputDialog("Digite o CPF:");
 		String loginFucionario = JOptionPane.showInputDialog("Digite o Login:");
@@ -184,6 +213,11 @@ public class Main {
 		}
 	}
 	
+	
+	
+	//métodos 
+
+	//sair do programa
 	private void sair(){
 		int op = JOptionPane.showConfirmDialog(null,
 				"Deseja terminar o cadastro?", "Saída",

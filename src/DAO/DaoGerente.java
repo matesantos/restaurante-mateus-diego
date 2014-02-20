@@ -11,10 +11,11 @@ import exceptions.CPFException;
 public class DaoGerente {
 	
 	static ArrayList<Gerente> gerenteList =  new ArrayList<Gerente>();
+	Iterator<Gerente> it = gerenteList.iterator();
 	
 	public boolean saveGerente(Gerente gerente) throws CPFException{
 
-		Iterator<Gerente> it = gerenteList.iterator();
+		it = gerenteList.iterator();
 		while(it.hasNext()){
 			if(it.next().getCpf().equalsIgnoreCase(gerente.getCpf())){
 				throw new CPFException();
@@ -25,19 +26,43 @@ public class DaoGerente {
 	}
 	
 	public void listGerentes(){
-		Iterator<Gerente> it = gerenteList.iterator();
+		if(gerenteList.isEmpty()){
+			JOptionPane.showMessageDialog(null, "Não existe gerente cadastrado no sistema");
+			return;
+		}
+		it = gerenteList.iterator();
 		while(it.hasNext()){
 			JOptionPane.showMessageDialog(null, it.next().toString());
 		}
 	}
 	
+	public void update(Gerente gerente) throws CPFException{
+		saveGerente(gerente);
+	}
+	
 	public Gerente doLogin(String login, String senha){
 		Gerente ger = null;
-		Iterator<Gerente> it = gerenteList.iterator();
+		it = gerenteList.iterator();
 		
 		while(it.hasNext()){
 			if(it.next().getLogin().equalsIgnoreCase(login) && it.next().getSenha().equalsIgnoreCase(senha)){
-				ger = it.next();
+				ger = (Gerente)it.next();
+			}
+		}
+		return ger;
+	}
+	
+	public void removeGerente(Gerente ger){
+		gerenteList.remove(ger);
+	}
+	
+	public Gerente fetchGerente(String cpf){
+		it = gerenteList.iterator();
+		Gerente ger = null;
+		while(it.hasNext()){
+			ger = it.next();
+			if(ger.getCpf().equalsIgnoreCase(cpf)){
+				return ger;
 			}
 		}
 		return ger;
