@@ -7,15 +7,15 @@ package DAO;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import entitys.*;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author Mateus
- */
+import entitys.*;
+import exceptions.CPFException;
+
 public class DaoFuncionario {
 	
-	static ArrayList<Funcionario> funcionarioList =  new ArrayList<Funcionario>();	
+	static ArrayList<Funcionario> funcionarioList =  new ArrayList<Funcionario>();
+	Iterator<Funcionario> it = funcionarioList.iterator();
     
     public Funcionario doLogin(String login, String senha){
     	Funcionario func = null;
@@ -29,20 +29,47 @@ public class DaoFuncionario {
 		return func;
     }
     
-    public void cadastrarFuncionario(Funcionario funcionario){
-    	
-    }
+    public boolean saveFuncionario(Funcionario funcionario) throws CPFException{
+
+		it = funcionarioList.iterator();
+		while(it.hasNext()){
+			if(it.next().getCpf().equalsIgnoreCase(funcionario.getCpf())){
+				throw new CPFException();
+			}
+		}
+		funcionarioList.add(funcionario);
+		return true;
+	}
     
     public void listFuncionario(){
-    	
-    }
+		if(funcionarioList.isEmpty()){
+			JOptionPane.showMessageDialog(null, "Não existe funcionário cadastrado no sistema");
+			return;
+		}
+		it = funcionarioList.iterator();
+		while(it.hasNext()){
+			JOptionPane.showMessageDialog(null, it.next().toString());
+		}
+	}
     
-    public void atualizarFuncionario(){
-    	
-    }
+    public void update(Funcionario funcionario) throws CPFException{
+    	saveFuncionario(funcionario);
+	}
     
-    public void deletarFuncionario(){
-    	
-    }
+    public void removeFuncionario(Funcionario func){
+    	funcionarioList.remove(func);
+	}
+    
+    public Funcionario fetchFuncionario(String cpf){
+		it = funcionarioList.iterator();
+		Funcionario func = null;
+		while(it.hasNext()){
+			func = it.next();
+			if(func.getCpf().equalsIgnoreCase(cpf)){
+				return func;
+			}
+		}
+		return func;
+	}
     
 }
