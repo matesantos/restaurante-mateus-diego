@@ -22,11 +22,6 @@ public class DaoClient {
 	 public boolean saveClient(Client client) throws IDException{
 
 			it = clientList.iterator();
-			/*while(it.hasNext()){
-				if(it.next().getClientId().equalsIgnoreCase(client.getClientId())){
-					throw new IDException(null);
-				}
-			}*/
 			clientList.add(client);
 			return true;
 		}

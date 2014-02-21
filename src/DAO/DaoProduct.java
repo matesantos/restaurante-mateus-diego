@@ -22,12 +22,6 @@ public class DaoProduct {
 	 public boolean saveProduct(Product product){
 
 			it = productList.iterator();
-			/*while(it.hasNext()){
-				if(it.next().getCpf().equalsIgnoreCase(funcionario.getCpf())){
-					//Criar exceção para produto
-					throw new CPFException();
-				}
-			}*/
 			productList.add(product);
 			return true;
 		}
