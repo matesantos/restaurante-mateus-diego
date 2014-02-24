@@ -22,6 +22,7 @@ public class DaoGerente {
 			}
 		}
 		gerenteList.add(gerente);
+		System.out.println("");
 		return true;
 	}
 	
