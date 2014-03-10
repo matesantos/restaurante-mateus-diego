@@ -2,11 +2,18 @@ package facede;
 
 import javax.swing.JOptionPane;
 
+import DAO.DaoClient;
+import DAO.DaoFuncionario;
+import DAO.DaoGerente;
+import DAO.DaoGerenteArquivo;
+import DAO.DaoProduct;
+import DAO.InterfaceDAOGerente;
 import entitys.Gerente;
 import exceptions.CPFException;
-import DAO.*;
 
 public class Facede {
+	
+	InterfaceDAOGerente dao;
 	
 	private DaoGerente daoGerente = null;
 	private DaoClient daoCliente = null;
@@ -62,9 +69,19 @@ public class Facede {
 	public void cadastrarGerente(String nomeCompleto, String cpf, String login,String senha) throws CPFException{
 		daoGerente = new DaoGerente();
 		Gerente gerente = new Gerente(nomeCompleto, cpf, login, senha); 
-		if(daoGerente.saveGerente(gerente)){
+		if(daoGerente.save(gerente)){
 			JOptionPane.showMessageDialog(null, "Gerente cadastrado com sucesso");
 		}
+	}
+	
+	public void cadastrarGerenteArquivo(String nomeCompleto, String cpf, String login,String senha) throws CPFException{
+		dao = new DaoGerenteArquivo();
+		Gerente gerente = new Gerente(nomeCompleto, cpf, login, senha);
+		
+		if(dao.save(gerente)){
+			JOptionPane.showMessageDialog(null, "Gerente salvo com sucesso!");
+		}
+
 	}
 	
 	public void atualizarGerente(String cpf, String login, String senha) throws CPFException{
@@ -100,5 +117,5 @@ public class Facede {
 			}
 		}
 	}
-
+	
 }

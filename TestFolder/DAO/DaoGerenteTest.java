@@ -15,7 +15,7 @@ public class DaoGerenteTest {
         Gerente gerente = null;
         DaoGerente instance = new DaoGerente();
         boolean expResult = false;
-        boolean result = instance.saveGerente(gerente);
+        boolean result = instance.save(gerente);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
