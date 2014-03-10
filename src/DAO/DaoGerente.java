@@ -8,23 +8,10 @@ import javax.swing.JOptionPane;
 import entitys.Gerente;
 import exceptions.CPFException;
 
-public class DaoGerente {
+public class DaoGerente implements InterfaceDAOGerente {
 	
 	static ArrayList<Gerente> gerenteList =  new ArrayList<Gerente>();
 	Iterator<Gerente> it = gerenteList.iterator();
-	
-	public boolean saveGerente(Gerente gerente) throws CPFException{
-
-		it = gerenteList.iterator();
-		while(it.hasNext()){
-			if(it.next().getCpf().equalsIgnoreCase(gerente.getCpf())){
-				throw new CPFException();
-			}
-		}
-		gerenteList.add(gerente);
-		System.out.println("");
-		return true;
-	}
 	
 	public void listGerentes(){
 		if(gerenteList.isEmpty()){
@@ -37,8 +24,12 @@ public class DaoGerente {
 		}
 	}
 	
-	public void update(Gerente gerente) throws CPFException{
-		saveGerente(gerente);
+	public void update(Gerente gerente){
+		try {
+			save(gerente);
+		} catch (CPFException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Gerente doLogin(String login, String senha){
@@ -67,6 +58,30 @@ public class DaoGerente {
 			}
 		}
 		return ger;
+	}
+
+	@Override
+	public boolean save(Gerente gerente) throws CPFException{
+		it = gerenteList.iterator();
+		while(it.hasNext()){
+			if(it.next().getCpf().equalsIgnoreCase(gerente.getCpf())){
+				throw new CPFException();
+			}
+		}
+		gerenteList.add(gerente);
+		return true;		
+	}
+
+	@Override
+	public boolean read(Gerente gerente) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(Gerente gerente) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

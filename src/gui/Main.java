@@ -119,7 +119,7 @@ public class Main {
 
 			switch (opcao) {
 			case 1:
-				adicionarGerente();
+				salvarComoGerente();
 			break;
 
 			case 2:
@@ -145,15 +145,39 @@ public class Main {
 			}
 		}
 	}
+	
+	private void salvarComoGerente(){
+		
+		int opcao = new Integer(JOptionPane.showInputDialog("Escolhe a opção:\n1-Salvar na memória\n2-Salvar em arquivo\n"));
 
-	private void adicionarGerente() {
+		switch (opcao) {
+			case 1:
+				adicionarGerente(opcao);
+			break;
+	
+			case 2:
+				adicionarGerente(opcao);
+			break;
+			
+			default:
+				JOptionPane.showMessageDialog(null, "Opção inválida");
+				salvarComoGerente();
+		}
+		
+	}
+
+	private void adicionarGerente(int opcao) {
 		String nome = JOptionPane.showInputDialog("Digite o nome completo:");
 		String cpf = JOptionPane.showInputDialog("Digite o CPF:");
 		String login = JOptionPane.showInputDialog("Digite o Login:");
 		String senha = JOptionPane.showInputDialog("Digite a Senha:");
 
 		try {
-			facede.cadastrarGerente(nome, cpf, login, senha);
+			
+			if(opcao == 1)
+				facede.cadastrarGerente(nome, cpf, login, senha);
+			else
+				facede.cadastrarGerenteArquivo(nome, cpf, login, senha);
 		} catch (CPFException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
@@ -165,6 +189,8 @@ public class Main {
 			return;
 		}
 	}
+	
+
 	
 	private void listGerente(){
 		facede.listGerente();
