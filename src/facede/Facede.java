@@ -2,6 +2,7 @@ package facede;
 
 import javax.swing.JOptionPane;
 
+import logic.FactoryEntity;
 import DAO.DaoClient;
 import DAO.DaoFuncionario;
 import DAO.DaoGerente;
@@ -19,6 +20,7 @@ public class Facede {
 	private DaoClient daoCliente = null;
 	private DaoFuncionario daoFuncionario = null;
 	private DaoProduct daoProduto = null;
+	private FactoryEntity factory = new FactoryEntity();
 	
 	//métodos de login 
 	public boolean fazerLoginGerente(String login, String senha){
@@ -68,7 +70,7 @@ public class Facede {
 	//métodos do modelo Gerente
 	public void cadastrarGerente(String nomeCompleto, String cpf, String login,String senha) throws CPFException{
 		daoGerente = new DaoGerente();
-		Gerente gerente = new Gerente(nomeCompleto, cpf, login, senha); 
+		Gerente gerente = factory.getGerente(nomeCompleto, cpf, login, senha); 
 		if(daoGerente.save(gerente)){
 			JOptionPane.showMessageDialog(null, "Gerente cadastrado com sucesso");
 		}
@@ -76,8 +78,7 @@ public class Facede {
 	
 	public void cadastrarGerenteArquivo(String nomeCompleto, String cpf, String login,String senha) throws CPFException{
 		dao = new DaoGerenteArquivo();
-		Gerente gerente = new Gerente(nomeCompleto, cpf, login, senha);
-		
+		Gerente gerente = factory.getGerente(nomeCompleto, cpf, login, senha);
 		if(dao.save(gerente)){
 			JOptionPane.showMessageDialog(null, "Gerente salvo com sucesso!");
 		}

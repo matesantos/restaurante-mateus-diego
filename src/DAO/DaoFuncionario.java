@@ -14,6 +14,14 @@ import exceptions.CPFException;
 
 public class DaoFuncionario {
 	
+	public static ArrayList<Funcionario> getFuncionarioList() {
+		return funcionarioList;
+	}
+
+	public static void setFuncionarioList(ArrayList<Funcionario> funcionarioList) {
+		DaoFuncionario.funcionarioList = funcionarioList;
+	}
+
 	static ArrayList<Funcionario> funcionarioList =  new ArrayList<Funcionario>();
 	Iterator<Funcionario> it = funcionarioList.iterator();
     

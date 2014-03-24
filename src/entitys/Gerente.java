@@ -2,7 +2,9 @@ package entitys;
 
 import java.util.Date;
 
-public class Gerente extends User{
+import logic.UserComposite;
+
+public class Gerente extends User implements UserComposite{
 
 	private long gerenteId;
 	
@@ -30,6 +32,12 @@ public class Gerente extends User{
 	@Override
 	public String toString() {
 		return "Id= " + gerenteId + super.toString() ;
+	}
+
+	@Override
+	public int getCount() {
+		
+		return 1;
 	}
 	
 }

@@ -2,7 +2,9 @@ package entitys;
 
 import java.util.Date;
 
-public class Funcionario extends User{
+import logic.UserComposite;
+
+public class Funcionario extends User implements UserComposite{
 
 	private long funcionarioId;
 	
@@ -25,6 +27,11 @@ public class Funcionario extends User{
 
 	public void setFuncionarioId(long funcionarioId) {
 		this.funcionarioId = funcionarioId;
+	}
+
+	@Override
+	public int getCount() {
+		return 1;
 	}
 	
 	

@@ -84,4 +84,12 @@ public class DaoGerente implements InterfaceDAOGerente {
 		return false;
 	}
 
+	public static ArrayList<Gerente> getGerenteList() {
+		return gerenteList;
+	}
+
+	public static void setGerenteList(ArrayList<Gerente> gerenteList) {
+		DaoGerente.gerenteList = gerenteList;
+	}
+
 }
